@@ -22,7 +22,8 @@ export default function LeaderboardPage() {
       <p className="mt-2 text-zinc-400">Globales ELO-Ranking.</p>
       {error ? <p className="mt-6 text-rose-400">{error}</p> : null}
       <Panel className="mt-8 overflow-hidden">
-        <table className="w-full text-left text-sm">
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[420px] text-left text-sm">
           <thead className="bg-white/4 text-zinc-500">
             <tr>
               <th className="px-4 py-3 font-medium">#</th>
@@ -44,6 +45,7 @@ export default function LeaderboardPage() {
             ))}
           </tbody>
         </table>
+        </div>
       </Panel>
     </main>
   );
