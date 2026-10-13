@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import dynamic from "next/dynamic";
 
@@ -12,7 +12,7 @@ export function CodeEditor({
   onChange: (v: string) => void;
 }) {
   return (
-    <div className="overflow-hidden rounded-xl border border-white/10">
+    <div className="overflow-hidden rounded-xl border border-line">
       <Monaco
         height="420px"
         language="python"
