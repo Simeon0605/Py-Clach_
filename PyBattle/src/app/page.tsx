@@ -10,12 +10,12 @@ const features = [
   {
     icon: Swords,
     title: "1v1 Battles",
-    text: "Matchmaking nach ELO, Live-Status, wer zuerst alle Tests knackt, gewinnt.",
+    text: "Matchmaking nach ELO, Live-Status – wer zuerst alle Tests knackt, gewinnt.",
   },
   {
     icon: Shield,
     title: "Sichere Auth",
-    text: "JWT + Refresh-Cookie-Flow. Frontend spricht nur mit deiner API, nie mit der DB.",
+    text: "JWT + Refresh-Cookie-Flow. Frontend spricht nur mit der API, nie mit der DB.",
   },
   {
     icon: Trophy,
@@ -24,57 +24,72 @@ const features = [
   },
 ];
 
+const stats = [
+  { value: "1v1", label: "Live-Battles" },
+  { value: "15min", label: "Server-Timer" },
+  { value: "ELO", label: "Fair-Matchmaking" },
+  { value: "100%", label: "Sandboxed" },
+];
+
 export default function Home() {
   return (
     <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col px-4 py-16">
       <section className="grid gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
         <div>
-          <p className="mb-4 inline-flex rounded-full border border-emerald-400/30 bg-emerald-400/10 px-3 py-1 text-xs font-medium uppercase tracking-wider text-emerald-300">
-            Python Code Arena
+          <p className="mb-4 inline-flex rounded-full border border-neon/30 bg-neon/10 px-3 py-1 text-xs font-medium uppercase tracking-wider text-neon">
+            {">_"} Python Code Arena
           </p>
-          <h1 className="text-4xl font-semibold tracking-tight text-white sm:text-6xl">
+          <h1 className="text-4xl font-semibold tracking-tight text-ink sm:text-6xl">
             Schreib Code.
             <br />
-            Schlag den Gegner.
+            <span className="neon-text">Schlag den Gegner.</span>
           </h1>
-          <p className="mt-5 max-w-xl text-lg leading-8 text-zinc-400">
+          <p className="mt-5 max-w-xl text-lg leading-8 text-dim">
             PyClash ist eine 1v1-Plattform für Python-Aufgaben. Solo gegen die Uhr
             oder live im Battle – geprüft gegen versteckte Test-Cases.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <Link
-              href="/register"
-              className="rounded-xl bg-emerald-400 px-5 py-3 font-medium text-[#07110b] hover:bg-emerald-300"
-            >
+            <Link href="/register" className="cyber-btn rounded-xl px-5 py-3">
               Jetzt starten
             </Link>
-            <Link
-              href="/problems"
-              className="rounded-xl border border-white/10 px-5 py-3 text-zinc-200 hover:bg-white/5"
-            >
+            <Link href="/problems" className="cyber-btn-ghost rounded-xl px-5 py-3">
               Probleme ansehen
             </Link>
           </div>
         </div>
-        <div className="rounded-3xl border border-white/10 bg-[#0e141c] p-6 font-mono text-sm shadow-[0_0_80px_rgba(61,255,154,0.08)]">
-          <div className="mb-4 flex items-center justify-between text-xs text-zinc-500">
+        <div className="cyber-panel min-w-0 rounded-3xl p-6 font-mono text-sm">
+          <div className="mb-4 flex items-center justify-between text-xs text-dim">
             <span>battle.py</span>
-            <span className="text-emerald-400">6/6 tests passed</span>
+            <span className="text-neon">6/6 tests passed</span>
           </div>
-          <pre className="overflow-x-auto text-[13px] leading-6 text-zinc-300">{`def two_sum(nums, target):
+          <pre className="overflow-x-auto text-[13px] leading-6 text-dim">{`def two_sum(nums, target):
     seen = {}
     for i, n in enumerate(nums):
         if target - n in seen:
             return [seen[target - n], i]
         seen[n] = i`}</pre>
+          <div className="mt-4 border-t border-line pt-3 text-xs">
+            <span className="text-neon">$</span> <span className="text-cyan">python</span> battle.py
+            <span className="ml-2 inline-block h-3.5 w-2 animate-pulse bg-neon align-middle" />
+          </div>
         </div>
       </section>
-      <section className="mt-20 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+
+      <section className="mt-14 grid grid-cols-2 gap-3 sm:grid-cols-4">
+        {stats.map((s) => (
+          <div key={s.label} className="cyber-panel rounded-xl px-4 py-3 text-center">
+            <p className="font-mono text-lg text-neon">{s.value}</p>
+            <p className="text-xs text-dim">{s.label}</p>
+          </div>
+        ))}
+      </section>
+
+      <section className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {features.map((f) => (
-          <div key={f.title} className="rounded-2xl border border-white/8 bg-[#0e141c]/70 p-5">
-            <f.icon className="mb-3 h-5 w-5 text-emerald-400" />
-            <h2 className="font-medium text-white">{f.title}</h2>
-            <p className="mt-2 text-sm leading-6 text-zinc-400">{f.text}</p>
+          <div key={f.title} className="cyber-panel min-w-0 rounded-2xl p-5">
+            <f.icon className="mb-3 h-5 w-5 text-cyan" />
+            <h2 className="font-medium text-ink">{f.title}</h2>
+            <p className="mt-2 text-sm leading-6 text-dim">{f.text}</p>
           </div>
         ))}
       </section>
