@@ -5,12 +5,13 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { loginSchema } from "@/lib/schemas";
 import { useAuth } from "@/components/auth-provider";
-import { Panel } from "@/components/ui";
+import { Panel, ErrorMessage, SuccessMessage } from "@/components/ui";
 
 export default function LoginPage() {
   const { login } = useAuth();
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
 
   async function onSubmit(form: FormData) {
