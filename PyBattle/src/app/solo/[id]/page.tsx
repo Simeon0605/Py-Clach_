@@ -17,7 +17,7 @@ function SoloArena() {
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<SoloSubmitResult | null>(null);
   const [pending, setPending] = useState(false);
-  const [now, setNow] = useState(Date.now());
+  const [now, setNow] = useState<number | null>(null);
 
   useEffect(() => {
     void api
@@ -27,6 +27,7 @@ function SoloArena() {
           setError(res.error);
           return;
         }
+        setNow(Date.now());
         setSession(res.data);
         setCode(res.data.problem.starter_code);
       });
@@ -40,18 +41,18 @@ function SoloArena() {
   if (error) {
     return (
       <div className="p-10">
-        <p className="text-rose-400">{error}</p>
-        <button className="mt-4 text-emerald-300" onClick={() => router.push("/problems")}>
+        <p className="text-rose">{error}</p>
+        <button className="mt-4 text-neon" onClick={() => router.push("/problems")}>
           Zurück
         </button>
       </div>
     );
   }
 
-  if (!session) return <p className="p-10 text-zinc-400">Session wird vom Server gestartet…</p>;
+  if (!session) return <p className="p-10 text-dim">Session wird vom Server gestartet…</p>;
 
   const started = new Date(session.started_at).getTime();
-  const elapsed = now - started;
+  const elapsed = now === null ? 0 : now - started;
   const timedOut = elapsed >= 15 * 60 * 1000;
 
   async function submit() {
@@ -76,22 +77,22 @@ function SoloArena() {
         <div className="flex items-center justify-between gap-3">
           <div>
             <DifficultyBadge level={session.problem.difficulty} />
-            <h1 className="mt-2 text-2xl font-semibold text-white">{session.problem.title}</h1>
+            <h1 className="mt-2 text-2xl font-semibold text-ink">{session.problem.title}</h1>
           </div>
           <div className="text-right">
-            <p className="font-mono text-2xl text-emerald-300">{formatDuration(elapsed)}</p>
-            <p className="text-xs text-zinc-500">Server-Timer (Referenz: started_at)</p>
+            <p className="font-mono text-2xl text-neon">{formatDuration(elapsed)}</p>
+            <p className="text-xs text-dim">Server-Timer (Referenz: started_at)</p>
           </div>
         </div>
-        <p className="mt-4 whitespace-pre-wrap text-sm leading-6 text-zinc-300">
+        <p className="mt-4 whitespace-pre-wrap text-sm leading-6 text-dim">
           {session.problem.description}
         </p>
-        <div className="mt-4 rounded-lg bg-black/40 p-3 font-mono text-xs text-zinc-400">
+        <div className="mt-4 rounded-lg bg-bg/60 p-3 font-mono text-xs text-dim">
           <p>Input: {session.problem.example_input}</p>
           <p>Output: {session.problem.example_output}</p>
         </div>
         {session.problem.best_score ? (
-          <p className="mt-4 text-sm text-emerald-300">
+          <p className="mt-4 text-sm text-neon">
             Dein Rekord: {formatMs(session.problem.best_score)}
           </p>
         ) : null}
@@ -102,24 +103,24 @@ function SoloArena() {
           <button
             disabled={pending || timedOut || result?.correct}
             onClick={() => void submit()}
-            className="rounded-xl bg-emerald-400 px-5 py-2.5 font-medium text-[#07110b] disabled:opacity-50"
+            className="rounded-xl bg-neon px-5 py-2.5 font-medium text-bg disabled:opacity-50"
           >
             {pending ? "Piston prüft…" : "Submit"}
           </button>
-          <p className="text-xs text-zinc-500">Min. 5s · Max. 15min · 1 Submit (außer Compile-Error)</p>
+          <p className="text-xs text-dim">Min. 5s · Max. 15min · 1 Submit (außer Compile-Error)</p>
         </div>
-        {error ? <p className="mt-3 text-sm text-rose-400">{error}</p> : null}
+        {error ? <p className="mt-3 text-sm text-rose">{error}</p> : null}
         {result ? (
           <Panel className="mt-4 p-4 text-sm">
             {result.compile_error ? (
-              <p className="text-amber-300">{result.compile_error} — du darfst erneut submitten.</p>
+              <p className="text-amber">{result.compile_error} — du darfst erneut submitten.</p>
             ) : result.correct ? (
-              <p className="text-emerald-300">
+              <p className="text-neon">
                 Alle Tests bestanden in {formatMs(result.duration_ms ?? 0)}. Bestzeit:{" "}
                 {result.best_score ? formatMs(result.best_score) : "—"}
               </p>
             ) : (
-              <p className="text-rose-300">
+              <p className="text-rose">
                 {result.tests_passed}/{result.tests_total} Tests. Session failed.
               </p>
             )}
