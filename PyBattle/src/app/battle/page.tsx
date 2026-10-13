@@ -36,19 +36,19 @@ function Queue() {
   return (
     <main className="mx-auto flex w-full max-w-xl flex-1 flex-col justify-center px-4 py-12">
       <Panel className="p-8 text-center">
-        <Swords className="mx-auto h-10 w-10 text-emerald-400" />
-        <h1 className="mt-4 text-3xl font-semibold text-white">1v1 Battle</h1>
-        <p className="mt-3 text-zinc-400">
+        <Swords className="mx-auto h-10 w-10 text-neon" />
+        <h1 className="mt-4 text-3xl font-semibold text-ink">1v1 Battle</h1>
+        <p className="mt-3 text-dim">
           Matchmaking nach ELO. Beide Spieler bekommen dasselbe Problem und 10 Minuten.
         </p>
         <button
           disabled={status === "queued"}
           onClick={() => void join()}
-          className="mt-8 w-full rounded-xl bg-emerald-400 py-3 font-medium text-[#07110b] disabled:opacity-60"
+          className="mt-8 w-full rounded-xl bg-neon py-3 font-medium text-bg disabled:opacity-60"
         >
           {status === "queued" ? "Suche Gegner…" : "Queue beitreten"}
         </button>
-        {error ? <p className="mt-4 text-sm text-rose-400">{error}</p> : null}
+        {error ? <p className="mt-4 text-sm text-rose">{error}</p> : null}
       </Panel>
     </main>
   );
