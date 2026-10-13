@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import { Panel } from "@/components/ui";
@@ -18,12 +18,13 @@ export default function LeaderboardPage() {
 
   return (
     <main className="mx-auto w-full max-w-3xl px-4 py-10">
-      <h1 className="text-3xl font-semibold text-white">Leaderboard</h1>
-      <p className="mt-2 text-zinc-400">Globales ELO-Ranking.</p>
-      {error ? <p className="mt-6 text-rose-400">{error}</p> : null}
+      <h1 className="text-3xl font-semibold text-ink">Leaderboard</h1>
+      <p className="mt-2 text-dim">Globales ELO-Ranking.</p>
+      {error ? <p className="mt-6 text-rose">{error}</p> : null}
       <Panel className="mt-8 overflow-hidden">
-        <table className="w-full text-left text-sm">
-          <thead className="bg-white/4 text-zinc-500">
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[420px] text-left text-sm">
+          <thead className="bg-panel2 text-dim">
             <tr>
               <th className="px-4 py-3 font-medium">#</th>
               <th className="px-4 py-3 font-medium">Spieler</th>
@@ -34,16 +35,17 @@ export default function LeaderboardPage() {
           </thead>
           <tbody>
             {rows.map((r) => (
-              <tr key={r.username} className="border-t border-white/6">
-                <td className="px-4 py-3 font-mono text-zinc-500">{r.rank}</td>
-                <td className="px-4 py-3 text-white">{r.username}</td>
-                <td className="px-4 py-3 font-mono text-emerald-300">{r.elo}</td>
+              <tr key={r.username} className="border-t border-line">
+                <td className="px-4 py-3 font-mono text-dim">{r.rank}</td>
+                <td className="px-4 py-3 text-ink">{r.username}</td>
+                <td className="px-4 py-3 font-mono text-neon">{r.elo}</td>
                 <td className="px-4 py-3">{r.wins}</td>
                 <td className="px-4 py-3">{r.losses}</td>
               </tr>
             ))}
           </tbody>
         </table>
+        </div>
       </Panel>
     </main>
   );
