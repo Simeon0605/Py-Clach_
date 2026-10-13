@@ -53,8 +53,8 @@ function Arena() {
   if (!match) {
     return (
       <div className="p-10">
-        <p className="text-zinc-400">Match nicht gefunden.</p>
-        <button className="mt-3 text-emerald-300" onClick={() => router.push("/battle")}>
+        <p className="text-dim">Match nicht gefunden.</p>
+        <button className="mt-3 text-neon" onClick={() => router.push("/battle")}>
           Zur Queue
         </button>
       </div>
@@ -99,29 +99,29 @@ function Arena() {
       <div>
         <div className="mb-4 flex items-end justify-between">
           <div>
-            <h1 className="text-2xl font-semibold text-white">{match.problem.title}</h1>
-            <p className="text-sm text-zinc-500">{match.problem.description}</p>
+            <h1 className="text-2xl font-semibold text-ink">{match.problem.title}</h1>
+            <p className="text-sm text-dim">{match.problem.description}</p>
           </div>
-          <p className="font-mono text-2xl text-emerald-300">{formatDuration(left)}</p>
+          <p className="font-mono text-2xl text-neon">{formatDuration(left)}</p>
         </div>
         <CodeEditor value={code} onChange={setCode} />
         <button
           disabled={pending || Boolean(over) || left <= 0}
           onClick={() => void submit()}
-          className="mt-4 rounded-xl bg-emerald-400 px-5 py-2.5 font-medium text-[#07110b] disabled:opacity-50"
+          className="mt-4 rounded-xl bg-neon px-5 py-2.5 font-medium text-bg disabled:opacity-50"
         >
           {pending ? "Submit…" : "Lösung senden"}
         </button>
-        {over ? <p className="mt-4 text-emerald-300">{over}</p> : null}
+        {over ? <p className="mt-4 text-neon">{over}</p> : null}
       </div>
       <Panel className="p-5">
-        <p className="text-xs uppercase tracking-wide text-zinc-500">Gegner</p>
-        <p className="mt-1 text-lg text-white">{match.opponent.username}</p>
-        <p className="font-mono text-sm text-zinc-400">{match.opponent.elo} ELO</p>
-        <div className="mt-6 space-y-2 text-sm text-zinc-400">
+        <p className="text-xs uppercase tracking-wide text-dim">Gegner</p>
+        <p className="mt-1 text-lg text-ink">{match.opponent.username}</p>
+        <p className="font-mono text-sm text-dim">{match.opponent.elo} ELO</p>
+        <div className="mt-6 space-y-2 text-sm text-dim">
           {log.length === 0 ? <p>Warte auf Live-Updates…</p> : null}
           {log.map((line) => (
-            <p key={line} className="rounded-lg bg-black/30 px-3 py-2">
+            <p key={line} className="rounded-lg bg-bg/60 px-3 py-2">
               {line}
             </p>
           ))}

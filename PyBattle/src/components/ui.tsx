@@ -3,10 +3,10 @@ import type { Difficulty } from "@/lib/types";
 export function DifficultyBadge({ level }: { level: Difficulty }) {
   const cls =
     level === "easy"
-      ? "bg-emerald-400/10 text-emerald-300"
+      ? "bg-neon/10 text-neon"
       : level === "medium"
-        ? "bg-amber-400/10 text-amber-300"
-        : "bg-rose-400/10 text-rose-300";
+        ? "bg-amber/10 text-amber"
+        : "bg-rose/10 text-rose";
   const label = level === "easy" ? "Easy" : level === "medium" ? "Medium" : "Hard";
   return (
     <span className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${cls}`}>{label}</span>
@@ -20,9 +20,21 @@ export function Panel({
   children: React.ReactNode;
   className?: string;
 }) {
+  return <div className={`cyber-panel rounded-2xl ${className}`}>{children}</div>;
+}
+
+export function SuccessMessage({ children }: { children: React.ReactNode }) {
   return (
-    <div className={`rounded-2xl border border-white/8 bg-[#0e141c]/80 ${className}`}>
+    <p className="rounded-lg border border-neon/30 bg-neon/10 px-3 py-2 text-sm text-neon">
       {children}
-    </div>
+    </p>
+  );
+}
+
+export function ErrorMessage({ children }: { children: React.ReactNode }) {
+  return (
+    <p className="rounded-lg border border-rose/30 bg-rose/10 px-3 py-2 text-sm text-rose">
+      {children}
+    </p>
   );
 }
