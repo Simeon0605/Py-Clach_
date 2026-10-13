@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
@@ -14,7 +14,7 @@ export function Protected({ children }: { children: React.ReactNode }) {
 
   if (loading || !user) {
     return (
-      <div className="flex flex-1 items-center justify-center text-sm text-zinc-400">
+      <div className="flex flex-1 items-center justify-center text-sm text-dim">
         Lade Session…
       </div>
     );
