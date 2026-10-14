@@ -3,6 +3,7 @@ import { Press_Start_2P, Space_Mono, Unbounded } from "next/font/google";
 import { AuthProvider } from "@/components/auth-provider";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
+import { CookieConsent } from "@/components/cookie-consent";
 import "./globals.css";
 
 const pixel = Press_Start_2P({
@@ -47,6 +48,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <Navbar />
           <div className="flex flex-1 flex-col">{children}</div>
           <Footer />
+          <CookieConsent />
         </AuthProvider>
       </body>
     </html>
