@@ -14,8 +14,8 @@ export function Protected({ children }: { children: React.ReactNode }) {
 
   if (loading || !user) {
     return (
-      <div className="flex flex-1 items-center justify-center text-sm text-zinc-400">
-        Lade Session…
+      <div className="flex flex-1 items-center justify-center text-xs tracking-[0.2em] text-ink opacity-70">
+        LADE SESSION…
       </div>
     );
   }

@@ -35,13 +35,28 @@ body {
   background: var(--paper);
   color: var(--ink);
   font-family: var(--font-space-mono), monospace;
-  font-size: 14px;
+  font-size: 15px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
+  overflow-wrap: break-word;
 }
 
 ::selection {
   background: var(--accent);
+  color: #fff;
+}
+
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible,
+.field:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.btn:active {
+  background: var(--signal);
+  border-color: var(--signal);
   color: #fff;
 }
 
@@ -121,11 +136,12 @@ h3 {
 
 .field {
   width: 100%;
+  max-width: 100%;
   border: 1px solid var(--ink);
   background: var(--paper);
-  padding: 10px 12px;
+  padding: 12px;
   font-family: var(--font-space-mono), monospace;
-  font-size: 13px;
+  font-size: 16px;
   outline: none;
   border-radius: 0;
 }

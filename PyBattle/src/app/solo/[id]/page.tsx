@@ -129,7 +129,7 @@ function SoloArena() {
         </div>
         {error ? <p className="mt-3 text-xs text-signal">{error}</p> : null}
         {result ? (
-          <Panel className="mt-4 p-4 text-[11px] tracking-[0.15em]">
+          <Panel className="mt-4 p-4 text-[11px] tracking-[0.15em]" aria-live="polite">
             {result.compile_error ? (
               <p className="text-pink">
                 {result.compile_error} — du darfst erneut submitten.

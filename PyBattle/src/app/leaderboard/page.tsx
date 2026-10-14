@@ -26,8 +26,8 @@ export default function LeaderboardPage() {
         Globales ELO-Ranking.
       </p>
       {error ? <p className="mt-6 text-xs text-signal">{error}</p> : null}
-      <Panel className="mt-8">
-        <table className="w-full text-left text-[11px] tracking-[0.15em]">
+      <Panel className="mt-8 max-w-full overflow-x-auto">
+        <table className="w-full min-w-[480px] text-left text-[11px] tracking-[0.15em]">
           <thead className="border-b border-ink bg-paper-alt text-accent">
             <tr>
               <th className="px-4 py-3">#</th>

@@ -12,7 +12,7 @@ export function CodeEditor({
   onChange: (v: string) => void;
 }) {
   return (
-    <div className="overflow-hidden rounded-xl border border-white/10">
+    <div className="max-w-full overflow-hidden border border-ink">
       <Monaco
         height="420px"
         language="python"
@@ -22,9 +22,10 @@ export function CodeEditor({
         options={{
           minimap: { enabled: false },
           fontSize: 14,
-          fontFamily: "var(--font-geist-mono), ui-monospace, monospace",
+          fontFamily: "var(--font-space-mono), ui-monospace, monospace",
           scrollBeyondLastLine: false,
           padding: { top: 12 },
+          automaticLayout: true,
         }}
       />
     </div>

@@ -52,7 +52,13 @@ export default function LoginPage() {
         >
           <label className="block text-xs">
             <span className="tracking-[0.2em] text-ink">E-MAIL</span>
-            <input name="email" type="email" className="field mt-2" required />
+            <input
+              name="email"
+              type="email"
+              className="field mt-2"
+              required
+              aria-describedby={error ? "login-error" : undefined}
+            />
           </label>
           <label className="block text-xs">
             <span className="tracking-[0.2em] text-ink">PASSWORT</span>
@@ -63,9 +69,9 @@ export default function LoginPage() {
               required
             />
           </label>
-          {error ? (
-            <p className="text-xs text-signal">{error}</p>
-          ) : null}
+          <p id="login-error" aria-live="assertive">
+            {error ? <span className="block text-xs text-signal">{error}</span> : null}
+          </p>
           <button disabled={pending} className="btn btn-pink w-full">
             {pending ? "PRÜFE…" : "EINLOGGEN_"}
           </button>

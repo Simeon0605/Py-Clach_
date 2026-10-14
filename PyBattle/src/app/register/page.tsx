@@ -69,7 +69,9 @@ export default function RegisterPage() {
               <input name={f.name} type={f.type} className="field mt-2" required />
             </label>
           ))}
-          {error ? <p className="text-xs text-signal">{error}</p> : null}
+          <p id="register-error" aria-live="assertive">
+            {error ? <span className="block text-xs text-signal">{error}</span> : null}
+          </p>
           <button disabled={pending} className="btn btn-pink w-full">
             {pending ? "ERSTELLE…" : "REGISTRIEREN_"}
           </button>

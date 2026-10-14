@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Press_Start_2P, Space_Mono, Unbounded } from "next/font/google";
 import { AuthProvider } from "@/components/auth-provider";
 import { Navbar } from "@/components/navbar";
+import { Footer } from "@/components/footer";
 import "./globals.css";
 
 const pixel = Press_Start_2P({
@@ -26,6 +27,13 @@ export const metadata: Metadata = {
   title: "PyClash — 1v1 Python Battles",
   description:
     "Echtzeit Coding-Battles, Solo-Mode mit Server-Timing und ELO-Leaderboard.",
+  openGraph: {
+    title: "PyClash — 1v1 Python Battles",
+    description:
+      "Tritt in Echtzeit-Python-Battles an: Solo gegen die Uhr oder 1v1 im Matchmaking. ELO, Leaderboard, versteckte Tests.",
+    type: "website",
+    locale: "de_DE",
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -38,6 +46,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <AuthProvider>
           <Navbar />
           <div className="flex flex-1 flex-col">{children}</div>
+          <Footer />
         </AuthProvider>
       </body>
     </html>

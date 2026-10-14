@@ -18,9 +18,14 @@ export function DifficultyBadge({ level }: { level: Difficulty }) {
 export function Panel({
   children,
   className = "",
+  ...rest
 }: {
   children: React.ReactNode;
   className?: string;
-}) {
-  return <div className={`panel ${className}`}>{children}</div>;
+} & React.HTMLAttributes<HTMLDivElement>) {
+  return (
+    <div className={`panel ${className}`} {...rest}>
+      {children}
+    </div>
+  );
 }

@@ -63,10 +63,6 @@ export default function ProblemDetailPage() {
             </pre>
           </div>
         </div>
-        <p className="mt-4 text-[10px] tracking-[0.2em] text-signal">
-          ✱ {problem.test_case_count} VERSTECKTE TEST-CASES (INHALT NUR AUF DEM
-          SERVER).
-        </p>
       </Panel>
       <div className="mt-6">
         {user ? (
