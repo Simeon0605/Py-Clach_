@@ -15,28 +15,35 @@ function Arena() {
   const [match, setMatch] = useState<BattleMatch | null>(null);
   const [sessionId, setSessionId] = useState<string | null>(null);
   const [code, setCode] = useState("");
-  const [now, setNow] = useState(Date.now());
+  const [now, setNow] = useState(0);
   const [log, setLog] = useState<string[]>([]);
   const [over, setOver] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
 
   useEffect(() => {
-    const raw = sessionStorage.getItem("pyclash_match");
-    if (!raw) return;
-    const parsed = JSON.parse(raw) as BattleMatch;
-    if (parsed.id !== params.id) return;
-    setMatch(parsed);
-    setCode(parsed.problem.starter_code);
-    void api
-      .post<{ session_id: string }>("/api/solo/start", { problem_id: parsed.problem.id })
-      .then((res) => {
-        if (res.success) setSessionId(res.data.session_id);
-      });
+    const t = setInterval(() => setNow(Date.now()), 250);
+    return () => clearInterval(t);
+  }, []);
+
+  useEffect(() => {
+    const init = setTimeout(() => {
+      const raw = sessionStorage.getItem("pyclash_match");
+      if (!raw) return;
+      const parsed = JSON.parse(raw) as BattleMatch;
+      if (parsed.id !== params.id) return;
+      setMatch(parsed);
+      setCode(parsed.problem.starter_code);
+      void api
+        .post<{ session_id: string }>("/api/solo/start", { problem_id: parsed.problem.id })
+        .then((res) => {
+          if (res.success) setSessionId(res.data.session_id);
+        });
+    }, 0);
+    return () => clearTimeout(init);
   }, [params.id]);
 
   useEffect(() => {
     if (!match) return;
-    const t = setInterval(() => setNow(Date.now()), 250);
     const fail = setTimeout(() => {
       setLog((l) => [...l, `${match.opponent.username} hat einen Fehler (3/6 Tests)`]);
     }, 4000);
@@ -44,7 +51,6 @@ function Arena() {
       setLog((l) => [...l, `${match.opponent.username} ist bei Test 5/6`]);
     }, 9000);
     return () => {
-      clearInterval(t);
       clearTimeout(fail);
       clearTimeout(progress);
     };
@@ -53,9 +59,12 @@ function Arena() {
   if (!match) {
     return (
       <div className="p-10">
-        <p className="text-zinc-400">Match nicht gefunden.</p>
-        <button className="mt-3 text-emerald-300" onClick={() => router.push("/battle")}>
-          Zur Queue
+        <p className="text-xs tracking-[0.2em] text-ink">MATCH NICHT GEFUNDEN.</p>
+        <button
+          className="link-pink mt-3 text-xs"
+          onClick={() => router.push("/battle")}
+        >
+          ZUR QUEUE
         </button>
       </div>
     );
@@ -91,37 +100,48 @@ function Arena() {
       duration_ms: elapsed,
     });
     const change = finish.success ? finish.data.elo_change : 18;
-    setOver(`Sieg gegen ${match.opponent.username} (${change >= 0 ? "+" : ""}${change} ELO)`);
+    setOver(`SIEG GEGEN ${match.opponent.username} (${change >= 0 ? "+" : ""}${change} ELO)`);
   }
 
   return (
     <main className="mx-auto grid w-full max-w-6xl gap-6 px-4 py-8 lg:grid-cols-[1fr_280px]">
       <div>
-        <div className="mb-4 flex items-end justify-between">
+        <div className="mb-4 flex items-end justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-semibold text-white">{match.problem.title}</h1>
-            <p className="text-sm text-zinc-500">{match.problem.description}</p>
+            <p className="kicker">
+              <span className="sigil">✱</span> ARENA / {match.problem.id}
+            </p>
+            <h1 className="font-pixel mt-3 text-lg text-ink">
+              {match.problem.title}
+            </h1>
+            <p className="mt-2 text-[10px] tracking-[0.15em] text-ink opacity-70">
+              {match.problem.description}
+            </p>
           </div>
-          <p className="font-mono text-2xl text-emerald-300">{formatDuration(left)}</p>
+          <p className="font-pixel text-lg text-accent">{formatDuration(left)}</p>
         </div>
         <CodeEditor value={code} onChange={setCode} />
         <button
           disabled={pending || Boolean(over) || left <= 0}
           onClick={() => void submit()}
-          className="mt-4 rounded-xl bg-emerald-400 px-5 py-2.5 font-medium text-[#07110b] disabled:opacity-50"
+          className="btn btn-pink mt-4"
         >
-          {pending ? "Submit…" : "Lösung senden"}
+          {pending ? "SUBMIT…" : "LÖSUNG SENDEN_"}
         </button>
-        {over ? <p className="mt-4 text-emerald-300">{over}</p> : null}
+        {over ? (
+          <p className="mt-4 text-xs tracking-[0.2em] text-accent">✱ {over}</p>
+        ) : null}
       </div>
       <Panel className="p-5">
-        <p className="text-xs uppercase tracking-wide text-zinc-500">Gegner</p>
-        <p className="mt-1 text-lg text-white">{match.opponent.username}</p>
-        <p className="font-mono text-sm text-zinc-400">{match.opponent.elo} ELO</p>
-        <div className="mt-6 space-y-2 text-sm text-zinc-400">
-          {log.length === 0 ? <p>Warte auf Live-Updates…</p> : null}
+        <p className="text-[10px] tracking-[0.25em] text-ink opacity-70">GEGNER</p>
+        <p className="font-pixel mt-2 text-sm text-ink">
+          {match.opponent.username}
+        </p>
+        <p className="mt-1 font-mono text-xs text-ink">{match.opponent.elo} ELO</p>
+        <div className="mt-6 space-y-2 text-[10px] leading-5 tracking-[0.15em] text-ink">
+          {log.length === 0 ? <p>WARTE AUF LIVE-UPDATES…</p> : null}
           {log.map((line) => (
-            <p key={line} className="rounded-lg bg-black/30 px-3 py-2">
+            <p key={line} className="border border-ink bg-paper-alt px-3 py-2">
               {line}
             </p>
           ))}

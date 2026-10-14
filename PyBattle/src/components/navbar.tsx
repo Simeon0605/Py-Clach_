@@ -2,13 +2,12 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Swords, Zap } from "lucide-react";
 import { useAuth } from "./auth-provider";
 
 const links = [
-  { href: "/problems", label: "Probleme" },
-  { href: "/battle", label: "Battle" },
-  { href: "/leaderboard", label: "Leaderboard" },
+  { href: "/problems", label: "PROBLEME" },
+  { href: "/battle", label: "BATTLE" },
+  { href: "/leaderboard", label: "LIGA" },
 ];
 
 export function Navbar() {
@@ -16,59 +15,50 @@ export function Navbar() {
   const { user, logout } = useAuth();
 
   return (
-    <header className="sticky top-0 z-40 border-b border-white/8 bg-[#07090d]/80 backdrop-blur-xl">
+    <header className="sticky top-0 z-40 border-b border-ink bg-paper">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
-        <Link href="/" className="flex items-center gap-2 font-semibold tracking-tight">
-          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-400 text-[#07110b]">
-            <Swords className="h-4 w-4" />
-          </span>
-          <span>
-            Py<span className="text-emerald-400">Clash</span>
-          </span>
+        <Link href="/" className="font-wide text-xl leading-none">
+          pyclash<span className="sigil">✱</span>
         </Link>
-        <nav className="hidden items-center gap-6 text-sm text-zinc-400 md:flex">
+        <nav className="hidden items-center gap-6 text-xs tracking-[0.2em] text-ink md:flex">
           {links.map((l) => (
             <Link
               key={l.href}
               href={l.href}
               className={
                 pathname.startsWith(l.href)
-                  ? "text-white"
-                  : "hover:text-white transition-colors"
+                  ? "bg-accent px-2 py-1 text-white"
+                  : "hover:bg-accent hover:text-white"
               }
             >
               {l.label}
             </Link>
           ))}
         </nav>
-        <div className="flex items-center gap-3 text-sm">
+        <div className="flex items-center gap-3 text-xs">
           {user ? (
             <>
               <Link href="/profile" className="hidden items-center gap-2 sm:flex">
-                <span className="text-zinc-400">{user.username}</span>
-                <span className="rounded-full bg-emerald-400/10 px-2 py-0.5 font-mono text-xs text-emerald-300">
+                <span className="text-ink">{user.username}</span>
+                <span className="border border-ink px-2 py-0.5 text-[10px] text-accent">
                   {user.elo} ELO
                 </span>
               </Link>
               <button
                 type="button"
                 onClick={() => void logout()}
-                className="rounded-lg border border-white/10 px-3 py-1.5 text-zinc-300 hover:bg-white/5"
+                className="btn btn-line px-3 py-1.5"
               >
-                Logout
+                LOGOUT
               </button>
             </>
           ) : (
             <>
-              <Link href="/login" className="text-zinc-300 hover:text-white">
-                Login
+              <Link href="/login" className="link-pink">
+                LOGIN
               </Link>
-              <Link
-                href="/register"
-                className="inline-flex items-center gap-1 rounded-lg bg-emerald-400 px-3 py-1.5 font-medium text-[#07110b] hover:bg-emerald-300"
-              >
-                <Zap className="h-3.5 w-3.5" />
-                Registrieren
+              <Link href="/register" className="btn btn-pink px-3 py-1.5">
+                REGISTRIEREN_
               </Link>
             </>
           )}

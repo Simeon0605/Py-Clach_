@@ -20,29 +20,34 @@ export default function ProblemsPage() {
 
   return (
     <main className="mx-auto w-full max-w-5xl px-4 py-10">
-      <h1 className="text-3xl font-semibold text-white">Probleme</h1>
-      <p className="mt-2 text-zinc-400">
-        Öffentliche Liste. Test-Cases siehst du nicht – nur die Anzahl.
+      <p className="kicker">
+        <span className="sigil">✱</span> ARCHIV / AUFGABEN
       </p>
-      {error ? <p className="mt-6 text-rose-400">{error}</p> : null}
+      <h1 className="font-pixel mt-4 text-2xl text-ink">PROBLEME</h1>
+      <p className="mt-3 text-[11px] tracking-[0.15em] text-ink">
+        Öffentliche Liste. Test-Cases siehst du nicht — nur die Anzahl.
+      </p>
+      {error ? <p className="mt-6 text-xs text-signal">{error}</p> : null}
       <div className="mt-8 space-y-3">
         {items.map((p) => (
-          <Link key={p.id} href={`/problems/${p.id}`}>
-            <Panel className="flex items-center justify-between px-5 py-4 transition hover:border-emerald-400/30">
+          <Link key={p.id} href={`/problems/${p.id}`} className="block">
+            <Panel className="flex items-center justify-between px-5 py-4 hover:bg-paper-alt">
               <div className="flex items-center gap-4">
                 <DifficultyBadge level={p.difficulty} />
                 <div>
-                  <p className="font-medium text-white">{p.title}</p>
-                  <p className="text-xs text-zinc-500">{p.test_case_count} versteckte Tests</p>
+                  <p className="text-sm text-ink">{p.title}</p>
+                  <p className="text-[10px] tracking-[0.2em] text-ink opacity-70">
+                    {p.test_case_count} VERSTECKTE TESTS
+                  </p>
                 </div>
               </div>
-              <div className="text-right text-sm">
+              <div className="text-right text-[11px]">
                 {p.solved ? (
-                  <p className="text-emerald-300">
-                    Gelöst · Bestzeit {p.best_score ? formatMs(p.best_score) : "—"}
+                  <p className="text-accent">
+                    GELÖST · BESTZEIT {p.best_score ? formatMs(p.best_score) : "—"}
                   </p>
                 ) : (
-                  <p className="text-zinc-500">Offen</p>
+                  <p className="text-ink opacity-70">OFFEN</p>
                 )}
               </div>
             </Panel>

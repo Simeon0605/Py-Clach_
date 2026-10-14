@@ -18,26 +18,34 @@ export default function LeaderboardPage() {
 
   return (
     <main className="mx-auto w-full max-w-3xl px-4 py-10">
-      <h1 className="text-3xl font-semibold text-white">Leaderboard</h1>
-      <p className="mt-2 text-zinc-400">Globales ELO-Ranking.</p>
-      {error ? <p className="mt-6 text-rose-400">{error}</p> : null}
-      <Panel className="mt-8 overflow-hidden">
-        <table className="w-full text-left text-sm">
-          <thead className="bg-white/4 text-zinc-500">
+      <p className="kicker">
+        <span className="sigil">✱</span> RATING / SEASON 04
+      </p>
+      <h1 className="font-pixel mt-4 text-2xl text-ink">DIE LIGA</h1>
+      <p className="mt-3 text-[11px] tracking-[0.15em] text-ink">
+        Globales ELO-Ranking.
+      </p>
+      {error ? <p className="mt-6 text-xs text-signal">{error}</p> : null}
+      <Panel className="mt-8">
+        <table className="w-full text-left text-[11px] tracking-[0.15em]">
+          <thead className="border-b border-ink bg-paper-alt text-accent">
             <tr>
-              <th className="px-4 py-3 font-medium">#</th>
-              <th className="px-4 py-3 font-medium">Spieler</th>
-              <th className="px-4 py-3 font-medium">ELO</th>
-              <th className="px-4 py-3 font-medium">W</th>
-              <th className="px-4 py-3 font-medium">L</th>
+              <th className="px-4 py-3">#</th>
+              <th className="px-4 py-3">SPIELER</th>
+              <th className="px-4 py-3">ELO</th>
+              <th className="px-4 py-3">W</th>
+              <th className="px-4 py-3">L</th>
             </tr>
           </thead>
           <tbody>
-            {rows.map((r) => (
-              <tr key={r.username} className="border-t border-white/6">
-                <td className="px-4 py-3 font-mono text-zinc-500">{r.rank}</td>
-                <td className="px-4 py-3 text-white">{r.username}</td>
-                <td className="px-4 py-3 font-mono text-emerald-300">{r.elo}</td>
+            {rows.map((r, i) => (
+              <tr
+                key={r.username}
+                className={`border-b border-ink last:border-b-0 ${i === 0 ? "bg-pink" : ""}`}
+              >
+                <td className="px-4 py-3 font-mono">{r.rank}</td>
+                <td className="px-4 py-3 text-ink">{r.username}</td>
+                <td className="px-4 py-3 font-mono text-accent">{r.elo}</td>
                 <td className="px-4 py-3">{r.wins}</td>
                 <td className="px-4 py-3">{r.losses}</td>
               </tr>
@@ -45,6 +53,9 @@ export default function LeaderboardPage() {
           </tbody>
         </table>
       </Panel>
+      <p className="mt-4 text-[10px] tracking-[0.25em] text-signal">
+        ✱ RAGEQUIT ZÄHLT ALS NIEDERLAGE
+      </p>
     </main>
   );
 }

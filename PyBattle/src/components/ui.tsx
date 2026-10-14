@@ -3,13 +3,15 @@ import type { Difficulty } from "@/lib/types";
 export function DifficultyBadge({ level }: { level: Difficulty }) {
   const cls =
     level === "easy"
-      ? "bg-emerald-400/10 text-emerald-300"
+      ? "border-accent text-accent"
       : level === "medium"
-        ? "bg-amber-400/10 text-amber-300"
-        : "bg-rose-400/10 text-rose-300";
-  const label = level === "easy" ? "Easy" : level === "medium" ? "Medium" : "Hard";
+        ? "border-pink text-pink"
+        : "border-signal bg-signal text-white";
+  const label = level === "easy" ? "EASY" : level === "medium" ? "MED" : "HARD";
   return (
-    <span className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${cls}`}>{label}</span>
+    <span className={`border px-2.5 py-0.5 text-[10px] tracking-[0.2em] ${cls}`}>
+      {label}
+    </span>
   );
 }
 
@@ -20,9 +22,5 @@ export function Panel({
   children: React.ReactNode;
   className?: string;
 }) {
-  return (
-    <div className={`rounded-2xl border border-white/8 bg-[#0e141c]/80 ${className}`}>
-      {children}
-    </div>
-  );
+  return <div className={`panel ${className}`}>{children}</div>;
 }

@@ -6,7 +6,6 @@ import { Protected } from "@/components/protected";
 import { Panel } from "@/components/ui";
 import { api } from "@/lib/api";
 import type { BattleMatch } from "@/lib/types";
-import { Swords } from "lucide-react";
 
 function Queue() {
   const router = useRouter();
@@ -35,20 +34,27 @@ function Queue() {
 
   return (
     <main className="mx-auto flex w-full max-w-xl flex-1 flex-col justify-center px-4 py-12">
-      <Panel className="p-8 text-center">
-        <Swords className="mx-auto h-10 w-10 text-emerald-400" />
-        <h1 className="mt-4 text-3xl font-semibold text-white">1v1 Battle</h1>
-        <p className="mt-3 text-zinc-400">
-          Matchmaking nach ELO. Beide Spieler bekommen dasselbe Problem und 10 Minuten.
+      <Panel className="chamfer relative p-10 text-center">
+        <span className="mark absolute left-3 top-3" aria-hidden="true" />
+        <span className="mark absolute right-3 top-3" aria-hidden="true" />
+        <span className="mark absolute bottom-3 left-3" aria-hidden="true" />
+        <span className="mark absolute bottom-3 right-3" aria-hidden="true" />
+        <p className="kicker">
+          <span className="sigil">✱</span> QUEUE / MATCHMAKING
+        </p>
+        <h1 className="font-pixel mt-6 text-2xl text-accent">1V1 BATTLE</h1>
+        <p className="mx-auto mt-5 max-w-sm text-[11px] leading-6 tracking-[0.15em] text-ink">
+          Matchmaking nach ELO. Beide Spieler bekommen dasselbe Problem und 10
+          Minuten.
         </p>
         <button
           disabled={status === "queued"}
           onClick={() => void join()}
-          className="mt-8 w-full rounded-xl bg-emerald-400 py-3 font-medium text-[#07110b] disabled:opacity-60"
+          className="btn btn-pink mt-8 w-full py-3"
         >
-          {status === "queued" ? "Suche Gegner…" : "Queue beitreten"}
+          {status === "queued" ? "SUCHE GEGNER…" : "QUEUE BEITRETEN_"}
         </button>
-        {error ? <p className="mt-4 text-sm text-rose-400">{error}</p> : null}
+        {error ? <p className="mt-4 text-xs text-signal">{error}</p> : null}
       </Panel>
     </main>
   );

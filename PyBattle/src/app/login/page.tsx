@@ -35,46 +35,45 @@ export default function LoginPage() {
 
   return (
     <main className="mx-auto flex w-full max-w-md flex-1 flex-col justify-center px-4 py-12">
-      <Panel className="p-8">
-        <h1 className="text-2xl font-semibold text-white">Login</h1>
-        <p className="mt-2 text-sm text-zinc-400">Access Token + Refresh-Flow, bereit für die echte API.</p>
+      <Panel className="chamfer p-8">
+        <p className="kicker">
+          <span className="sigil">✱</span> LOGIN / TOKEN / FLOW
+        </p>
+        <h1 className="font-pixel mt-4 text-xl text-ink">LOGIN</h1>
+        <p className="mt-3 text-[11px] tracking-[0.15em] text-ink">
+          Access Token + Refresh-Flow, bereit für die echte API.
+        </p>
         <form
-          className="mt-6 space-y-4"
+          className="mt-8 space-y-5"
           onSubmit={(e) => {
             e.preventDefault();
             void onSubmit(new FormData(e.currentTarget));
           }}
         >
-          <label className="block text-sm">
-            <span className="text-zinc-400">E-Mail</span>
-            <input
-              name="email"
-              type="email"
-              className="mt-1 w-full rounded-lg border border-white/10 bg-black/30 px-3 py-2 outline-none focus:border-emerald-400"
-              required
-            />
+          <label className="block text-xs">
+            <span className="tracking-[0.2em] text-ink">E-MAIL</span>
+            <input name="email" type="email" className="field mt-2" required />
           </label>
-          <label className="block text-sm">
-            <span className="text-zinc-400">Passwort</span>
+          <label className="block text-xs">
+            <span className="tracking-[0.2em] text-ink">PASSWORT</span>
             <input
               name="password"
               type="password"
-              className="mt-1 w-full rounded-lg border border-white/10 bg-black/30 px-3 py-2 outline-none focus:border-emerald-400"
+              className="field mt-2"
               required
             />
           </label>
-          {error ? <p className="text-sm text-rose-400">{error}</p> : null}
-          <button
-            disabled={pending}
-            className="w-full rounded-lg bg-emerald-400 py-2.5 font-medium text-[#07110b] disabled:opacity-60"
-          >
-            {pending ? "Prüfe…" : "Einloggen"}
+          {error ? (
+            <p className="text-xs text-signal">{error}</p>
+          ) : null}
+          <button disabled={pending} className="btn btn-pink w-full">
+            {pending ? "PRÜFE…" : "EINLOGGEN_"}
           </button>
         </form>
-        <p className="mt-4 text-sm text-zinc-500">
-          Noch kein Account?{" "}
-          <Link href="/register" className="text-emerald-300">
-            Registrieren
+        <p className="mt-6 text-[11px] tracking-[0.15em] text-ink">
+          NOCH KEIN ACCOUNT?{" "}
+          <Link href="/register" className="link-pink">
+            REGISTRIEREN
           </Link>
         </p>
       </Panel>
